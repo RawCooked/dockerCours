@@ -3,18 +3,12 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
-        DOCKERHUB_USER = 'TON_USER_DOCKERHUB'
+        DOCKERHUB_USER = 'rawcooked'
         BACKEND_IMAGE = "${DOCKERHUB_USER}/appgestion-backend"
         FRONTEND_IMAGE = "${DOCKERHUB_USER}/appgestion-frontend"
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/RawCooked/AppGestionDesProjets.git'
-            }
-        }
-
         stage('Build Backend Image') {
             steps {
                 sh "docker build -t ${BACKEND_IMAGE}:${BUILD_NUMBER} -t ${BACKEND_IMAGE}:latest ./backend"
